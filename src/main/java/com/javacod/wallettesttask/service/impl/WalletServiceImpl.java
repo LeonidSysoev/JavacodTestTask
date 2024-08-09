@@ -28,17 +28,18 @@ public class WalletServiceImpl implements WalletService {
         Wallet wallet = findWallet(walletDto.getWalletId());
         log.info("Wallet {} is found", wallet.getWalletId());
         switch (walletDto.getOperationType()) {
-            case DEPOSIT:
+            case DEPOSIT -> {
                 wallet.setAmount(walletDto.getAmount().add(wallet.getAmount()));
                 log.info("The deposit has been updated");
-                break;
-            case WITHDRAW:
+            }
+            case WITHDRAW -> {
                 if (wallet.getAmount().subtract(walletDto.getAmount()).compareTo(BigDecimal.ZERO) < 0) {
                     throw new InsufficientFundsException("Insufficient funds in the wallet");
                 } else {
                     wallet.setAmount(walletDto.getAmount().subtract(wallet.getAmount()));
                     log.info("Withdrawal from the wallet");
                 }
+            }
         }
         walletRepository.save(wallet);
         return WalletMapper.INSTANCE.toDTO(wallet);

@@ -1,7 +1,6 @@
 package com.javacod.wallettesttask.mapper;
 
 import com.javacod.wallettesttask.dto.WalletDto;
-import com.javacod.wallettesttask.enums.OperationType;
 import com.javacod.wallettesttask.model.Wallet;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,5 +12,6 @@ public interface WalletMapper {
 
     @Mapping(source = "wallet.walletId", target = "walletId")
     @Mapping(source = "wallet.amount", target = "amount")
+    @Mapping(target = "operationType", ignore = true)
     WalletDto toDTO(Wallet wallet);
 }
