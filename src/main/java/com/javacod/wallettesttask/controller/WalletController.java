@@ -1,6 +1,7 @@
 package com.javacod.wallettesttask.controller;
 
 import com.javacod.wallettesttask.dto.WalletDto;
+import com.javacod.wallettesttask.dto.WalletDtoRequest;
 import com.javacod.wallettesttask.service.WalletService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,8 @@ public class WalletController {
     private final WalletService walletService;
 
     @PostMapping("/wallet")
-    public ResponseEntity<WalletDto> updateWallet(@Valid @RequestBody WalletDto walletDto) {
-        return ResponseEntity.ok(walletService.updateWallet(walletDto));
+    public ResponseEntity<WalletDto> updateWallet(@Valid @RequestBody WalletDtoRequest walletDtoRequest) {
+        return ResponseEntity.ok(walletService.updateWallet(walletDtoRequest));
     }
 
     @GetMapping("wallets/{WALLET_UUID}")

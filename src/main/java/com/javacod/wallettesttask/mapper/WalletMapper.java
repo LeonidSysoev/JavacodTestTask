@@ -12,6 +12,5 @@ public interface WalletMapper {
 
     @Mapping(source = "wallet.walletId", target = "walletId")
     @Mapping(source = "wallet.amount", target = "amount")
-    @Mapping(target = "operationType", ignore = true)
     WalletDto toDTO(Wallet wallet);
 }

@@ -1,3 +1,4 @@
 FROM amazoncorretto:17
-COPY out/artifacts/WalletTestTask_jar/ WalletTestTask.jar
-CMD ["java", "-jar", "/walletTestTask.jar"]
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} wallettesttask.jar
+CMD ["java", "-jar", "/wallettesttask.jar"]
