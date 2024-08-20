@@ -1,6 +1,6 @@
 package com.javacod.wallettesttask.controller;
 
-import com.javacod.wallettesttask.dto.WalletDtoRequest;
+
 import com.javacod.wallettesttask.enums.OperationType;
 import com.javacod.wallettesttask.exception.WalletNotFoundException;
 import com.javacod.wallettesttask.service.WalletService;
@@ -19,7 +19,6 @@ import java.util.UUID;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(WalletController.class)
