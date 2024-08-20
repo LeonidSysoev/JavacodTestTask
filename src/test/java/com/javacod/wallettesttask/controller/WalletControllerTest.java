@@ -2,6 +2,7 @@ package com.javacod.wallettesttask.controller;
 
 import com.javacod.wallettesttask.dto.WalletDtoRequest;
 import com.javacod.wallettesttask.enums.OperationType;
+import com.javacod.wallettesttask.exception.WalletNotFoundException;
 import com.javacod.wallettesttask.service.WalletService;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -46,9 +48,21 @@ class WalletControllerTest {
     }
 
     @Test
-    void getBalanceTest() {
+    void getBalanceTest() throws Exception {
         UUID walletId = UUID.randomUUID();
         when(walletService.getWalletBalance(walletId)).thenReturn(BigDecimal.valueOf(1000));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/wallets/" + walletId))
+                .andExpect(status().isOk())
+                .andDo(print());
 
+    }
+
+    @Test
+    void getWalletNotFound() throws Exception {
+        UUID walletId = UUID.randomUUID();
+        doThrow(new WalletNotFoundException("Wallet not found")).when(walletService).getWalletBalance(walletId);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/wallets/" + walletId))
+                .andExpect(status().isNotFound())
+                .andDo(print());
     }
 }
